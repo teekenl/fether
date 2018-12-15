@@ -3,10 +3,14 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import { action, observable } from 'mobx';
+import { action, computed, observable } from 'mobx';
 
 import bip39 from 'bip39';
 import hdkey from 'ethereumjs-wallet/hdkey';
+
+import store from 'store';
+import LS_PREFIX from './utils/lsPrefix';
+import localForage from 'localforage';
 
 import Debug from '../utils/debug';
 import parityStore from './parityStore';
@@ -14,6 +18,7 @@ import getParityWordlist from './utils/getParityWordlist';
 
 const debug = Debug('createAccountStore');
 
+export const SIGNER_ACCOUNTS_LS_KEY = `${LS_PREFIX}::paritySignerAccounts`;
 const DERIVATION_PATH = "m/44'/60'/0'/0/0";
 
 export class CreateAccountStore {
@@ -70,7 +75,24 @@ export class CreateAccountStore {
   saveAccountToParity = async password => {
     debug('Saving account to Parity.');
 
-    if (this.jsonString) {
+    if (this.noPrivateKey()) {
+      // Import address via Parity Signer
+      // utiliser localforage hum hum
+      const accounts =
+        (await localForage.getItem(SIGNER_ACCOUNTS_LS_KEY)) || [];
+      console.log('accounts', accounts);
+      // If the address doesn't already exist, add it
+      if (
+        !accounts.some(
+          ({ address: existingAddress }) =>
+            existingAddress.toLowerCase() === this.address.toLowerCase()
+        )
+      ) {
+        accounts.push({ address: this.address, name: this.name });
+        console.log('adding to local storage...', accounts);
+      }
+      localForage.setItem(SIGNER_ACCOUNTS_LS_KEY, accounts);
+    } else if (this.jsonString) {
       await parityStore.api.parity.newAccountFromWallet(
         this.jsonString,
         password
@@ -93,7 +115,7 @@ export class CreateAccountStore {
       );
     } else {
       throw new Error(
-        'saveAccountToParity: no JSON, Parity phrase or BIP39 phrase'
+        'saveAccountToParity: no JSON, Parity phrase, BIP39 phrase or address'
       );
     }
 
@@ -171,6 +193,17 @@ export class CreateAccountStore {
   setName = async name => {
     this.name = name;
   };
+
+  @action
+  setAddressOnly = async address => {
+    await this.clear();
+    this.address = address;
+  };
+
+  // Returns true for Signer account imports
+  // @computed get
+  noPrivateKey = () =>
+    !this.jsonString && !this.parityPhrase && !this.bip39Phrase;
 }
 
 export default new CreateAccountStore();

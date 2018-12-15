@@ -5,16 +5,13 @@
 
 import React, { Component } from 'react';
 import { AccountCard, Header } from 'fether-ui';
-import { accountsInfo$, withoutLoading } from '@parity/light.js';
 import { inject, observer } from 'mobx-react';
-import light from '@parity/light.js-react';
+import withAccountsInfo from '../../utils/withAccountsInfo';
 
 import Health from '../../Health';
 
-@light({
-  accountsInfo: () => accountsInfo$().pipe(withoutLoading())
-})
 @inject('createAccountStore', 'parityStore')
+@withAccountsInfo
 @observer
 class AccountsList extends Component {
   handleClick = ({
@@ -35,7 +32,11 @@ class AccountsList extends Component {
   render () {
     const { accountsInfo } = this.props;
 
+    console.log('got accountsinfo', accountsInfo);
+
     const accountsList = Object.keys(accountsInfo);
+
+    console.log('computed accountslist', accountsList);
 
     return (
       <div className='accounts-list'>

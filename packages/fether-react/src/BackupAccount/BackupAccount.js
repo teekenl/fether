@@ -6,18 +6,16 @@
 import React, { Component } from 'react';
 import { AccountHeader, Card, Form as FetherForm } from 'fether-ui';
 import { observer } from 'mobx-react';
-import { accountsInfo$ } from '@parity/light.js';
 import light from '@parity/light.js-react';
 import { Link, withRouter } from 'react-router-dom';
 
 import backupAccount from '../utils/backupAccount';
 import withAccount from '../utils/withAccount';
+import withAccountsInfo from '../utils/withAccountsInfo';
 
 @withRouter
 @withAccount
-@light({
-  accountsInfo: accountsInfo$
-})
+@withAccountsInfo
 @observer
 class BackupAccount extends Component {
   state = {

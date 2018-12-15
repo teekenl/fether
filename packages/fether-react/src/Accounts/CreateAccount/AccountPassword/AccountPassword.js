@@ -17,6 +17,15 @@ class AccountPassword extends Component {
     error: ''
   };
 
+  componentDidMount = () => {
+    const {
+      createAccountStore: { noPrivateKey }
+    } = this.props;
+    // In case we import an account via Parity Signer (we only know the address)
+    // we skip asking for a passphrase
+    if (noPrivateKey()) this.handleSubmit();
+  };
+
   handleConfirmChange = ({ target: { value } }) => {
     this.setState({ confirm: value });
   };
@@ -29,7 +38,9 @@ class AccountPassword extends Component {
     const { createAccountStore, history } = this.props;
     const { password } = this.state;
 
-    event.preventDefault();
+    // todo use react final form here
+    event && event.preventDefault();
+
     this.setState({ isLoading: true });
 
     // Save to parity
@@ -58,6 +69,7 @@ class AccountPassword extends Component {
     const { confirm, error, isLoading, password } = this.state;
     const currentStep = pathname.slice(-1);
 
+    // todo use react final form here
     return (
       <AccountCard
         address={address}

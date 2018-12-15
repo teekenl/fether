@@ -5,19 +5,17 @@
 
 import React, { PureComponent } from 'react';
 import { AccountHeader } from 'fether-ui';
-import { accountsInfo$ } from '@parity/light.js';
 import light from '@parity/light.js-react';
 import { Link, Redirect, withRouter } from 'react-router-dom';
 
 import Health from '../Health';
 import TokensList from './TokensList';
 import withAccount from '../utils/withAccount';
+import withAccountsInfo from '../utils/withAccountsInfo';
 
 @withRouter
 @withAccount
-@light({
-  accountsInfo: accountsInfo$
-})
+@withAccountsInfo
 class Tokens extends PureComponent {
   handleGoToBackup = () => {
     this.props.history.push(`/backup/${this.props.accountAddress}`);
@@ -28,6 +26,8 @@ class Tokens extends PureComponent {
   };
 
   render () {
+    // todo il faut réinjecter ici en plus le localstorage...
+    // faire @withAccountsInfo
     const { accountsInfo, accountAddress } = this.props;
 
     // If the accountsInfo object is empty (i.e. no accounts), then we redirect
@@ -60,9 +60,17 @@ class Tokens extends PureComponent {
             <Health />
           </div>
           <div className='footer-nav_icons'>
-            <button className='button -tiny' onClick={this.handleGoToBackup}>
-              Backup Account
-            </button>
+            {accountsInfo &&
+              accountsInfo[accountAddress] &&
+              // Hide option to do a backup if this is a Parity Signer account
+              accountsInfo[accountAddress].type === 'node' && (
+              <button
+                className='button -tiny'
+                onClick={this.handleGoToBackup}
+              >
+                  Backup Account
+              </button>
+            )}
             <button className='button -tiny' onClick={this.handleGoToWhitelist}>
               Add tokens
             </button>
