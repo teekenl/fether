@@ -5,7 +5,6 @@
 
 import React, { PureComponent } from 'react';
 import { AccountHeader } from 'fether-ui';
-import light from '@parity/light.js-react';
 import { Link, Redirect, withRouter } from 'react-router-dom';
 
 import Health from '../Health';

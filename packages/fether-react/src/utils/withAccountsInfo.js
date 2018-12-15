@@ -1,14 +1,10 @@
 import { accountsInfo$, withoutLoading } from '@parity/light.js';
-import { compose, mapPropsStream, withHandlers, withProps } from 'recompose';
+import { compose, mapPropsStream } from 'recompose';
 import keyBy from 'lodash/keyBy';
 import light from '@parity/light.js-react';
-import localForage from 'localforage';
 import { map, switchMap } from 'rxjs/operators';
 
-import ethereumIcon from '../assets/img/tokens/ethereum.png';
 import localForage$ from './localForage';
-import LS_PREFIX from '../stores/utils/lsPrefix';
-import withAccount from './withAccount';
 
 import { SIGNER_ACCOUNTS_LS_KEY } from '../stores/createAccountStore';
 

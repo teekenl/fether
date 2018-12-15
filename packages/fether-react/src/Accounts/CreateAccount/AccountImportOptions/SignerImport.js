@@ -3,7 +3,7 @@ import QrSigner from '@parity/qr-signer';
 import loading from '../../../assets/img/icons/loading.svg';
 
 export default class ParityQrSigner extends React.PureComponent {
-  state: State = {
+  state = {
     webcamError: null,
     isLoading: true
   };

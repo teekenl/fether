@@ -3,12 +3,11 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import { action, computed, observable } from 'mobx';
+import { action, observable } from 'mobx';
 
 import bip39 from 'bip39';
 import hdkey from 'ethereumjs-wallet/hdkey';
 
-import store from 'store';
 import LS_PREFIX from './utils/lsPrefix';
 import localForage from 'localforage';
 
