@@ -62,13 +62,8 @@ class AccountsList extends Component {
                     <AccountCard
                       address={address}
                       className='-clickable'
-                      name={
-                        accountsInfo &&
-                        accountsInfo[address] &&
-                        (accountsInfo[address].name
-                          ? accountsInfo[address].name
-                          : '(No name)')
-                      }
+                      signer={accountsInfo[address].type === 'signer'}
+                      name={accountsInfo[address].name || '(no name)'}
                       shortAddress
                     />
                   </li>

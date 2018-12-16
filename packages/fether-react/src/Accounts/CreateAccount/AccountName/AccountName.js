@@ -48,12 +48,13 @@ class AccountName extends Component {
 
   renderCardWhenImported = () => {
     const {
-      createAccountStore: { address, name }
+      createAccountStore: { address, name, noPrivateKey }
     } = this.props;
 
     return (
       <AccountCard
         address={address}
+        signer={noPrivateKey()}
         drawers={[this.renderDrawer()]}
         name={name || '(no name)'}
       />
