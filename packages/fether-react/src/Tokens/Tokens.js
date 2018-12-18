@@ -5,46 +5,34 @@
 
 import React, { PureComponent } from 'react';
 import { AccountHeader } from 'fether-ui';
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import Health from '../Health';
 import TokensList from './TokensList';
 import withAccount from '../utils/withAccount';
-import withAccountsInfo from '../utils/withAccountsInfo';
 
 @withRouter
 @withAccount
-@withAccountsInfo
 class Tokens extends PureComponent {
   handleGoToBackup = () => {
-    this.props.history.push(`/backup/${this.props.accountAddress}`);
+    this.props.history.push(`/backup/${this.props.account.address}`);
   };
 
   handleGoToWhitelist = () => {
-    this.props.history.push(`/whitelist/${this.props.accountAddress}`);
+    this.props.history.push(`/whitelist/${this.props.account.address}`);
   };
 
   render () {
-    // todo il faut réinjecter ici en plus le localstorage...
-    // faire @withAccountsInfo
-    const { accountsInfo, accountAddress } = this.props;
-
-    // If the accountsInfo object is empty (i.e. no accounts), then we redirect
-    // to the accounts page to create an account
-    if (accountsInfo && !Object.keys(accountsInfo).length) {
-      return <Redirect to='/accounts/new' />;
-    }
+    const {
+      account: { address, name, type }
+    } = this.props;
 
     return (
       <div>
         <AccountHeader
-          address={accountAddress}
+          address={address}
           copyAddress
-          name={
-            accountsInfo &&
-            accountsInfo[accountAddress] &&
-            accountsInfo[accountAddress].name
-          }
+          name={name}
           left={
             <Link to='/accounts' className='icon -back'>
               Back
@@ -59,17 +47,12 @@ class Tokens extends PureComponent {
             <Health />
           </div>
           <div className='footer-nav_icons'>
-            {accountsInfo &&
-              accountsInfo[accountAddress] &&
-              // Hide option to do a backup if this is a Parity Signer account
-              accountsInfo[accountAddress].type === 'node' && (
-              <button
-                className='button -tiny'
-                onClick={this.handleGoToBackup}
-              >
-                  Backup Account
-              </button>
-            )}
+            {// Hide option to do a backup if this is a Parity Signer account
+              type === 'node' && (
+                <button className='button -tiny' onClick={this.handleGoToBackup}>
+                Backup Account
+                </button>
+              )}
             <button className='button -tiny' onClick={this.handleGoToWhitelist}>
               Add tokens
             </button>

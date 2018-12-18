@@ -19,11 +19,8 @@ const withAccountsInfo = compose(
   // mapPropsStream and add localForage$
   mapPropsStream(
     switchMap(({ accountsInfo: nodeAccountsInfo, ...props }) => {
-      console.log('nodeAccountsInfo youhou');
-
       return localForage$(SIGNER_ACCOUNTS_LS_KEY).pipe(
         map(paritySignerAccounts => {
-          console.log('localStorageInfo youhou');
           const paritySignerAccountsInfo = keyBy(
             paritySignerAccounts,
             'address'
@@ -33,10 +30,6 @@ const withAccountsInfo = compose(
           });
           Object.keys(paritySignerAccountsInfo).forEach(address => {
             paritySignerAccountsInfo[address].type = 'signer';
-          });
-          console.log('paritySignerAccountsInfo', paritySignerAccountsInfo, {
-            ...props,
-            accountsInfo: { ...paritySignerAccountsInfo, ...nodeAccountsInfo }
           });
           return {
             ...props,

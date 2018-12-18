@@ -32,11 +32,7 @@ class AccountsList extends Component {
   render () {
     const { accountsInfo } = this.props;
 
-    console.log('got accountsinfo', accountsInfo);
-
     const accountsList = Object.keys(accountsInfo);
-
-    console.log('computed accountslist', accountsList);
 
     return (
       <div className='accounts-list'>

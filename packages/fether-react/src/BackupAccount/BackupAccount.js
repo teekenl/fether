@@ -10,11 +10,9 @@ import { Link, withRouter } from 'react-router-dom';
 
 import backupAccount from '../utils/backupAccount';
 import withAccount from '../utils/withAccount';
-import withAccountsInfo from '../utils/withAccountsInfo';
 
 @withRouter
 @withAccount
-@withAccountsInfo
 @observer
 class BackupAccount extends Component {
   state = {
@@ -28,13 +26,16 @@ class BackupAccount extends Component {
   };
 
   handleSubmit = event => {
-    const { accountAddress, history } = this.props;
+    const {
+      account: { address },
+      history
+    } = this.props;
     const { password } = this.state;
 
     event.preventDefault();
     this.setState({ isLoading: true });
 
-    backupAccount(accountAddress, password)
+    backupAccount(address, password)
       .then(res => {
         /*
           FIXME: this timeout is a placeholder for after the backup file is saved.
@@ -54,23 +55,20 @@ class BackupAccount extends Component {
 
   render () {
     const {
-      accountsInfo,
-      history,
-      location: { pathname }
+      account: { name, address },
+      history
+      // location: { pathname }
     } = this.props;
     const { isLoading, message, password } = this.state;
-    const accountAddress = pathname.slice(-42);
+    // const accountAddress = pathname.slice(-42);
+    // TODO check if still works
 
     return (
       <div>
         <AccountHeader
-          address={accountAddress}
+          address={address}
           copyAddress
-          name={
-            accountsInfo &&
-            accountsInfo[accountAddress] &&
-            accountsInfo[accountAddress].name
-          }
+          name={name}
           left={
             <Link to='/accounts' className='icon -back'>
               Back

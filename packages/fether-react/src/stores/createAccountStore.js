@@ -79,7 +79,6 @@ export class CreateAccountStore {
       // utiliser localforage hum hum
       const accounts =
         (await localForage.getItem(SIGNER_ACCOUNTS_LS_KEY)) || [];
-      console.log('accounts', accounts);
       // If the address doesn't already exist, add it
       if (
         !accounts.some(
@@ -88,7 +87,6 @@ export class CreateAccountStore {
         )
       ) {
         accounts.push({ address: this.address, name: this.name });
-        console.log('adding to local storage...', accounts);
       }
       localForage.setItem(SIGNER_ACCOUNTS_LS_KEY, accounts);
     } else if (this.jsonString) {

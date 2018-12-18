@@ -3,6 +3,6 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import Signer from './Signer';
+import TxQrCode from './TxQrCode';
 
-export default Signer;
+export default TxQrCode;

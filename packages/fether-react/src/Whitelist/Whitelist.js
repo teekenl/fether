@@ -14,6 +14,7 @@ import NewTokenItem from './NewTokenItem';
 import withAccount from '../utils/withAccount';
 import withTokens from '../utils/withTokens';
 
+// TODO I think we can safely remove this here
 @withAccount
 @withTokens
 @light({

@@ -8,9 +8,11 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import withAccount from '../utils/withAccount.js';
 
 import Sent from './Sent';
-import Signer from './Signer';
+import Unlock from './Unlock';
 import TxForm from './TxForm';
+import TxQrCode from './TxQrCode';
 
+// TODO I think we can safely remove this
 @withAccount
 class Send extends Component {
   render () {
@@ -20,7 +22,8 @@ class Send extends Component {
     return (
       <Switch>
         <Route exact path={`${path}`} component={TxForm} />
-        <Route path={`${path}/signer`} component={Signer} />
+        <Route path={`${path}/unlock`} component={Unlock} />
+        <Route path={`${path}/txqrcode`} component={TxQrCode} />
         <Route path={`${path}/sent`} component={Sent} />
         <Redirect to='/' />
       </Switch>

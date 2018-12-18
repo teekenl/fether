@@ -18,7 +18,7 @@ import { withProps } from 'recompose';
 import { estimateGas } from '../../utils/estimateGas';
 import RequireHealth from '../../RequireHealthOverlay';
 import TokenBalance from '../../Tokens/TokensList/TokenBalance';
-import withAccount from '../../utils/withAccount.js';
+import withAccount from '../../utils/withAccount';
 import withBalance, { withEthBalance } from '../../utils/withBalance';
 import withTokens from '../../utils/withTokens';
 
@@ -36,10 +36,21 @@ const MIN_GAS_PRICE = 3; // Safelow gas price from GasStation, in Gwei
 @observer
 class Send extends Component {
   handleSubmit = values => {
-    const { accountAddress, history, sendStore, token } = this.props;
+    const {
+      account: { address, type },
+      history,
+      sendStore,
+      token
+    } = this.props;
 
     sendStore.setTx(values);
-    history.push(`/send/${token.address}/from/${accountAddress}/signer`);
+
+    // TODO THOSE CHECKS ARE PRETTY UGLY. hydrate with everything (utils)
+    if (type === 'signer') {
+      history.push(`/send/${token.address}/from/${address}/txqrcode`);
+    } else {
+      history.push(`/send/${token.address}/from/${address}/unlock`);
+    }
   };
 
   decorator = createDecorator({
@@ -60,7 +71,7 @@ class Send extends Component {
 
   render () {
     const {
-      accountAddress,
+      account: { address, type },
       sendStore: { tx },
       token
     } = this.props;
@@ -69,7 +80,7 @@ class Send extends Component {
       <div>
         <Header
           left={
-            <Link to={`/tokens/${accountAddress}`} className='icon -back'>
+            <Link to={`/tokens/${address}`} className='icon -back'>
               Close
             </Link>
           }
@@ -84,7 +95,7 @@ class Send extends Component {
                 drawers={[
                   <Form
                     key='txForm'
-                    initialValues={{ from: accountAddress, gasPrice: 4, ...tx }}
+                    initialValues={{ from: address, gasPrice: 4, ...tx }}
                     onSubmit={this.handleSubmit}
                     validate={this.validateForm}
                     decorators={[this.decorator]}
@@ -141,7 +152,11 @@ class Send extends Component {
                             disabled={!valid || validating}
                             className='button'
                           >
-                            {validating ? 'Checking...' : 'Send'}
+                            {validating
+                              ? 'Checking...'
+                              : type === 'signer'
+                                ? 'Scan transaction QR code'
+                                : 'Send'}
                           </button>
                         </nav>
                       </form>
