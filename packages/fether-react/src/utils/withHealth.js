@@ -195,15 +195,16 @@ export default compose(
           }
 
           // Syncing blocks
-          if (!isSync) {
-            return {
-              ...props,
-              health: {
-                status: STATUS.SYNCING,
-                payload: syncPayload
-              }
-            };
-          }
+          // TODO TEMP
+          // if (!isSync) {
+          //   return {
+          //     ...props,
+          //     health: {
+          //       status: STATUS.SYNCING,
+          //       payload: syncPayload
+          //     }
+          //   };
+          // }
 
           // Everything's OK
           return {

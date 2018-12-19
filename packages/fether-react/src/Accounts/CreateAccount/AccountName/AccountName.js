@@ -54,7 +54,7 @@ class AccountName extends Component {
     return (
       <AccountCard
         address={address}
-        signer={noPrivateKey()}
+        type={noPrivateKey() ? 'signer' : 'node'}
         drawers={[this.renderDrawer()]}
         name={name || '(no name)'}
       />

@@ -58,7 +58,7 @@ class AccountsList extends Component {
                     <AccountCard
                       address={address}
                       className='-clickable'
-                      signer={accountsInfo[address].type === 'signer'}
+                      type={accountsInfo[address].type}
                       name={accountsInfo[address].name || '(no name)'}
                       shortAddress
                     />

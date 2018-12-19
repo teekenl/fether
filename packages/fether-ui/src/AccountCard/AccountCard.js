@@ -15,13 +15,13 @@ import { Name } from './Name';
 export const AccountCard = ({
   address,
   name,
-  signer,
+  type,
   shortAddress,
   ...otherProps
 }) => (
   <Card {...otherProps}>
     <div className='account'>
-      <Avatar address={address} signer={signer} />
+      <Avatar address={address} type={type} />
       <Information>
         <Name name={name} />
         <Address address={address} short={shortAddress} />

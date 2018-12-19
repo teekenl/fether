@@ -33,6 +33,7 @@ class Tokens extends PureComponent {
           address={address}
           copyAddress
           name={name}
+          type={type}
           left={
             <Link to='/accounts' className='icon -back'>
               Back

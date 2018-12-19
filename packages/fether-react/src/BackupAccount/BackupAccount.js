@@ -55,7 +55,7 @@ class BackupAccount extends Component {
 
   render () {
     const {
-      account: { name, address },
+      account: { name, address, type },
       history
       // location: { pathname }
     } = this.props;
@@ -69,6 +69,7 @@ class BackupAccount extends Component {
           address={address}
           copyAddress
           name={name}
+          type={type}
           left={
             <Link to='/accounts' className='icon -back'>
               Back
