@@ -185,14 +185,15 @@ export default compose(
           }
 
           // Not enough peers
-          if (peerCount === undefined || peerCount.lte(1)) {
-            return {
-              ...props,
-              health: {
-                status: STATUS.NOPEERS
-              }
-            };
-          }
+          // TODO TEMP
+          // if (peerCount === undefined || peerCount.lte(1)) {
+          //   return {
+          //     ...props,
+          //     health: {
+          //       status: STATUS.NOPEERS
+          //     }
+          //   };
+          // }
 
           // Syncing blocks
           // TODO TEMP

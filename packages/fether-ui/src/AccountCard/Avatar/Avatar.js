@@ -15,7 +15,7 @@ export const Avatar = ({
   type,
   style,
   scale = 4,
-  size = 10,
+  size = 8,
   ...otherProps
 }) => (
   <div className='account_avatar' style={style}>
@@ -34,7 +34,7 @@ export const Avatar = ({
               position: 'absolute',
               bottom: 0,
               right: 0,
-              height: size * scale * 0.4
+              height: size * scale * 0.5
             }}
           />
         )}

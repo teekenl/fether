@@ -1870,6 +1870,15 @@
     js-sha3 "0.5.5"
     utf8 "^2.1.2"
 
+"@parity/abi@^3.0.13":
+  version "3.0.13"
+  resolved "https://registry.yarnpkg.com/@parity/abi/-/abi-3.0.13.tgz#66740b4365f781995bcc7644eb0c740af1ad5dce"
+  integrity sha512-S+YbPgGJbNKStm9LUPNTZiwDJk2dfAyzs9RPzzR4EXS1/KVm9I0OtZJgMed/Z+zgnU0XwD3/APw9iv6EL071qA==
+  dependencies:
+    bignumber.js "^8.0.1"
+    js-sha3 "0.7.0"
+    utf8 "^3.0.0"
+
 "@parity/api@^2.1.22":
   version "2.1.23"
   resolved "https://registry.yarnpkg.com/@parity/api/-/api-2.1.23.tgz#c9cba0d64085cd03fafc69d1bd5b53cbabd0c280"
@@ -1889,7 +1898,7 @@
     store "^2.0.12"
     websocket "^1.0.25"
 
-"@parity/api@^2.1.23", "@parity/api@^2.1.24":
+"@parity/api@^2.1.24":
   version "2.1.24"
   resolved "https://registry.yarnpkg.com/@parity/api/-/api-2.1.24.tgz#e04ca177598354b435b83c8cfe7c7c3672bf3e44"
   integrity sha512-jJ93cyC5eZC9pQY/FXcSyQiFHNzg5wFzrVLB+RVfbKbIqCWmOAhlv+rssN35qPZ4ccehIGgFB5i7rkpfSajzkQ==
@@ -1905,6 +1914,23 @@
     isomorphic-fetch "^2.2.1"
     js-sha3 "0.5.5"
     lodash "^4.17.4"
+    store "^2.0.12"
+    websocket "^1.0.25"
+
+"@parity/api@^3.0.13":
+  version "3.0.13"
+  resolved "https://registry.yarnpkg.com/@parity/api/-/api-3.0.13.tgz#bf9f7fe05c398f30451df8410499c47c20bb516f"
+  integrity sha512-NnlXiA3DKQdGiwGIwM9lcIouxLkaCg+0CT6jufNFD+G1gLQ75raBTB46mpTjq4txbjyqgMLWNGiWiievHJ9P+w==
+  dependencies:
+    "@parity/abi" "^3.0.13"
+    bignumber.js "^8.0.1"
+    blockies "0.0.2"
+    es6-error "4.0.2"
+    es6-promise "^4.1.1"
+    eventemitter3 "^3.1.0"
+    isomorphic-fetch "^2.2.1"
+    js-sha3 "0.5.5"
+    lodash "^4.17.11"
     store "^2.0.12"
     websocket "^1.0.25"
 
@@ -1949,16 +1975,16 @@
     recompose "^0.28.2"
     symbol-observable "^1.2.0"
 
-"@parity/light.js@1.0.9":
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/@parity/light.js/-/light.js-1.0.9.tgz#e7685712d6d5265923ad2852f50462344af92b5c"
-  integrity sha512-gCZsnv8Yilk6kTEZwRJBPF4FpLkpH7dJ/1ngrYy+6cGcgWLWvPJMaP2tQUUziMsbpBSDWKhYpZMD0jFTVzuy5g==
+"@parity/light.js@^3.0.13":
+  version "3.0.13"
+  resolved "https://registry.yarnpkg.com/@parity/light.js/-/light.js-3.0.13.tgz#836c2db0c46ff598e2f1972177b0ffa6915e4782"
+  integrity sha512-zClSPPLP/rpqb/WIssqaypXO9+wVGVKJA7zIpkUj2QAPOKqfMPnaclnxW8P2HzkykGuSmyUzVbjQeOpURyit0w==
   dependencies:
-    "@parity/abi" "^2.1.4"
-    "@parity/api" "^2.1.23"
+    "@parity/abi" "^3.0.13"
+    "@parity/api" "^3.0.13"
     async-retry "^1.2.3"
-    bignumber.js "^7.2.1"
-    debug "^3.1.0"
+    bignumber.js "^8.0.1"
+    debug "^4.1.0"
     memoizee "^0.4.12"
 
 "@parity/qr-signer@^0.3.1":
@@ -3861,6 +3887,11 @@ bignumber.js@^7.2.1:
   version "7.2.1"
   resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-7.2.1.tgz#80c048759d826800807c4bfd521e50edbba57a5f"
   integrity sha512-S4XzBk5sMB+Rcb/LNcpzXr57VRTxgAvaAEDAl1AwRx27j00hT84O6OkteE7u8UB3NuaaygCRrEpqox4uDOrbdQ==
+
+bignumber.js@^8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-8.0.1.tgz#5d419191370fb558c64e3e5f70d68e5947138832"
+  integrity sha512-zAySveTJXkgLYCBi0b14xzfnOs+f3G6x36I8w2a1+PFQpWk/dp0mI0F+ZZK2bu+3ELewDcSyP+Cfq++NcHX7sg==
 
 binary-extensions@^1.0.0:
   version "1.11.0"
@@ -6958,7 +6989,20 @@ etag@~1.8.1:
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
 
-ethereumjs-util@^5.2.0:
+ethereum-common@^0.0.18:
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/ethereum-common/-/ethereum-common-0.0.18.tgz#2fdc3576f232903358976eb39da783213ff9523f"
+  integrity sha1-L9w1dvIykDNYl26znaeDIT/5Uj8=
+
+ethereumjs-tx@^1.3.7:
+  version "1.3.7"
+  resolved "https://registry.yarnpkg.com/ethereumjs-tx/-/ethereumjs-tx-1.3.7.tgz#88323a2d875b10549b8347e09f4862b546f3d89a"
+  integrity sha512-wvLMxzt1RPhAQ9Yi3/HKZTn0FZYpnsmQdbKYfUUpi4j1SEIcbkd9tndVjcPrufY3V7j2IebOpC00Zp2P/Ay2kA==
+  dependencies:
+    ethereum-common "^0.0.18"
+    ethereumjs-util "^5.0.0"
+
+ethereumjs-util@^5.0.0, ethereumjs-util@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/ethereumjs-util/-/ethereumjs-util-5.2.0.tgz#3e0c0d1741471acf1036052d048623dee54ad642"
   integrity sha512-CJAKdI0wgMbQFLlLRtZKGcy/L6pzVRgelIZqRqNbuVFM3K9VEnyfbcvz0ncWMRNCe4kaHWjwRYQcYMucmwsnWA==
@@ -7019,7 +7063,7 @@ eventemitter3@^2.0.2:
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-2.0.3.tgz#b5e1079b59fb5e1ba2771c0a993be060a58c99ba"
   integrity sha1-teEHm1n7XhuidxwKmTvgYKWMmbo=
 
-eventemitter3@^3.0.0:
+eventemitter3@^3.0.0, eventemitter3@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.1.0.tgz#090b4d6cdbd645ed10bf750d4b5407942d7ba163"
   integrity sha512-ivIvhpq/Y0uSjcHDcOIccjmYjGLcP09MFGE7ysAwkAvkXfpZlC985pH2/ui64DKazbTW/4kN3yqozUxlXzI6cA==
@@ -10010,6 +10054,11 @@ js-sha3@0.5.5:
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/js-sha3/-/js-sha3-0.5.5.tgz#baf0c0e8c54ad5903447df96ade7a4a1bca79a4a"
   integrity sha1-uvDA6MVK1ZA0R9+Wreekobynmko=
+
+js-sha3@0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/js-sha3/-/js-sha3-0.7.0.tgz#0a5c57b36f79882573b2d84051f8bb85dd1bd63a"
+  integrity sha512-Wpks3yBDm0UcL5qlVhwW9Jr9n9i4FfeWBFOOXP5puDS/SiudJGhw7DPyBqn3487qD4F0lsC0q3zxink37f7zeA==
 
 js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"

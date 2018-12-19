@@ -9,48 +9,54 @@ import { inject, observer } from 'mobx-react';
 import { Link, Redirect } from 'react-router-dom';
 import QrSigner from '@parity/qr-signer';
 import { withProps } from 'recompose';
+import EthereumTx from 'ethereumjs-tx';
 
 import RequireHealth from '../../RequireHealthOverlay';
 import withAccount from '../../utils/withAccount.js';
 import withTokens from '../../utils/withTokens';
 
-function transactionToRLP ({ to, amount: value, gas: gasLimit, gasPrice }) {
-  /*
-  export function transactionToRLP(tx: EthTx): string {
+function transactionToRLPMac (tx) {
   const { v, r, s } = tx;
+
   // Poor man's serialize without signature.
   tx.v = Buffer.from([tx._chainId]);
   tx.r = Buffer.from([0]);
   tx.s = Buffer.from([0]);
+
   const rlp = '0x' + tx.serialize().toString('hex');
+
+  // Restore previous values
+  tx.v = v;
+  tx.r = r;
+  tx.s = s;
+
+  return rlp;
+}
+
+function transactionToRLP ({
+  nonce,
+  to,
+  amount: value,
+  gas: gasLimit,
+  gasPrice
+}) {
+  /*
+  export function transactionToRLP(tx: EthTx): string {
+
   */
 
-  // ?? - -nonce ??
   const txParams = {
-    // nonce?
+    nonce: '0x' + nonce.toNumber().toString(16), // TODO bignumber to hex
     to,
-    value, // todo check ("0x...")
-    gasLimit,
-    gasPrice
+    value: parseFloat(value) * Math.pow(10, 18), // todo check ("0x...")
+    gasLimit: '0x' + gasLimit.toNumber().toString(16), // TODO bignumber to hex
+    gasPrice,
+    chainId: 42 // TODO. +chainName$
   };
 
-  console.log('tx params are', txParams);
+  // avoir un exemple de raw transaction
 
-  // const tx =
-  const rlp = 'temp';
-  console.log('serialized');
-
-  /*
-
-NEXT UP
-TX TO RLP
-(actuellement amount from gas gasPrice To)
-voir si je veux utiliser ethereumjs-tx pour serialize
-ou si je veux faire ça à la mano
-(je vais en avoir besoin pour la signature aussi HUM)
-
-    console.log('setting tx',values)
-    */
+  const tx = new EthereumTx(txParams);
 
   // console.log('transactiontorlp INPUT',tx);
   // const { v, r, s } = tx;
@@ -64,6 +70,9 @@ ou si je veux faire ça à la mano
   // tx.r = r;
   // tx.s = s;
   // console.log('transactiontorlp OUTPUT',rlp);
+  // const rlp = '0x' + tx.serialize().toString('hex');
+  const rlp = transactionToRLPMac(tx);
+  console.log('RLP', rlp);
   return rlp;
 }
 
@@ -89,15 +98,17 @@ class TxQrCode extends Component {
 
   render () {
     const {
-      account: { address },
+      account: { address, transactionCount },
       history,
       sendStore: { tx },
       token
     } = this.props;
 
-    if (!tx || !token) {
+    if (!Object.keys(tx).length || !token) {
       return <Redirect to='/' />;
     }
+
+    console.log('tx is', tx);
 
     return (
       <div>
@@ -117,7 +128,7 @@ class TxQrCode extends Component {
               <QrSigner
                 scan={false}
                 account={address}
-                rlp={transactionToRLP(tx)}
+                rlp={transactionToRLP({ ...tx, nonce: transactionCount })}
               />
               <nav className='form-nav -binary'>
                 <button

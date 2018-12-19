@@ -71,10 +71,12 @@ class Send extends Component {
 
   render () {
     const {
-      account: { address, type },
+      account: { address, type, transactionCount },
       sendStore: { tx },
       token
     } = this.props;
+
+    console.log('transaction count is ', transactionCount, address);
 
     return (
       <div>
