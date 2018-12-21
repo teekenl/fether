@@ -10,4 +10,5 @@ export * from './Card';
 export * from './Form';
 export * from './Header';
 export * from './Placeholder';
+export * from './Scanner';
 export * from './TokenCard';

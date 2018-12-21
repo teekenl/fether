@@ -2,13 +2,14 @@ import React from 'react';
 import QrSigner from '@parity/qr-signer';
 import loading from '../../../assets/img/icons/loading.svg';
 
-export default class ParityQrSigner extends React.PureComponent {
+export default class Scanner extends React.PureComponent {
   state = {
     webcamError: null,
     isLoading: true
   };
 
-  componentDidMount () {
+  // Todo put this in a shared component (signerimport, scansignedtx)
+  componentDidMount() {
     this.checkForWebcam();
     if (navigator.mediaDevices) {
       navigator.mediaDevices.addEventListener(
@@ -18,7 +19,7 @@ export default class ParityQrSigner extends React.PureComponent {
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (navigator.mediaDevices && navigator.mediaDevices.ondevicechange) {
       navigator.mediaDevices.removeEventListener(
         'devicechange',
@@ -57,8 +58,8 @@ export default class ParityQrSigner extends React.PureComponent {
     }
   };
 
-  render () {
-    const { onScan } = this.props;
+  render() {
+    const { onScan, label } = this.props;
     const { webcamError, isLoading } = this.state;
     const size = 300;
 
@@ -74,11 +75,11 @@ export default class ParityQrSigner extends React.PureComponent {
         ) : webcamError ? (
           <p>{webcamError}</p>
         ) : (
-          <div>
-            <p>Please show the QR code of the account on the webcam.</p>
-            <QrSigner scan onScan={onScan} size={size} />
-          </div>
-        )}
+              <div>
+                <p>{label}</p>
+                <QrSigner scan onScan={onScan} size={size} />
+              </div>
+            )}
       </div>
     );
   }

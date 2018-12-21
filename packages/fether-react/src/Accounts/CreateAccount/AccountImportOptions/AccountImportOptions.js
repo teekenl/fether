@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import { Card, Form as FetherForm } from 'fether-ui';
 import { inject, observer } from 'mobx-react';
-import SignerImport from './SignerImport';
+import { Scanner } from 'fether-ui';
 
 @inject('createAccountStore')
 @observer
@@ -116,7 +116,7 @@ class AccountImportOptions extends Component {
             <p>Recover from Parity Signer</p>
 
             {importingFromSigner ? (
-              <SignerImport onScan={this.handleSignerImported} />
+              <Scanner onScan={this.handleSignerImported} label="Please show the QR code of the account on the webcam."/>
             ) : (
               <button
                 className='button -footer'
