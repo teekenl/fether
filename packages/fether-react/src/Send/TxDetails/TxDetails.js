@@ -6,6 +6,86 @@
 import React, { Component } from 'react';
 import BigNumber from 'bignumber.js';
 import { toWei } from '@parity/api/lib/util/wei';
+import styled, { ThemeProvider } from 'styled-components';
+
+const DivFormField = styled.div`
+  margin: 0.5rem 0;
+  border-radius: 0.25rem;
+  background: rgba(${props => props.theme.faint};, 0.25);
+  position: relative;
+`;
+
+const AnchorTxDetails = styled.a`
+  color: ${props => props.theme.darkGrey};
+  font-size: 0.8rem;
+  font-weight: 400;
+`;
+
+const LabelTextareaTxDetails = styled.label`
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: ${props => props.theme.black};
+  opacity: 0.75;
+  padding: 0.5rem 0.5rem 0;
+  display: block;
+`;
+
+const TextareaTxDetails = styled.textarea`
+  background: transparent;
+  border: 0;
+  color: ${props => props.theme.darkGrey};
+  font-family: ${props => props.theme.mono};
+  font-size: 0.6rem;
+  font-weight: 400;
+  height: 4.75rem;
+  line-height: 1.3rem;
+  margin-top: -0.25rem;
+  opacity: 0.75;
+  overflow: hidden;
+  padding: 0.5rem;
+  resize: none;
+  width: calc(100% - 1rem);
+  word-wrap: break-word;
+`;
+
+// Define props.theme that will overwrite default them when wrapping
+// components with `<ThemeProvider theme={theme}></ThemeProvider>`
+const theme = {
+  black: '#222',
+  darkGrey: '#444444',
+  faint: '#ddd',
+  // TODO - how to add alternatives fonts: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace
+  mono: 'Menlo'
+};
+
+// // Default theme for DivFormField that is not wrapped in ThemeProvider
+// DivFormField.defaultProps = {
+//   theme: {
+//     faint: '#ddd'
+//   }
+// }
+
+// // Default theme for AnchorTxDetails that is not wrapped in ThemeProvider
+// AnchorTxDetails.defaultProps = {
+//   theme: {
+//     darkGrey: '#444444'
+//   }
+// }
+
+// // Default theme for LabelTextareaTxDetails that is not wrapped in ThemeProvider
+// LabelTextareaTxDetails.defaultProps = {
+//   theme: {
+//     black: '#222'
+//   }
+// }
+
+// // Default theme for TextareaTxDetails that is not wrapped in ThemeProvider
+// TextareaTxDetails.defaultProps = {
+//   theme: {
+//     darkGrey: '#444444',
+//     mono: 'Menlo'
+//   }
+// }
 
 class TxDetails extends Component {
   state = {
@@ -52,17 +132,17 @@ class TxDetails extends Component {
 
   showDetailsAnchor = () => {
     return (
-      <span className='details'>
-        <a onClick={this.toggleDetails}>&darr; Details</a>
-      </span>
+      <AnchorTxDetails onClick={this.toggleDetails}>
+        &darr; Details
+      </AnchorTxDetails>
     );
   };
 
   showHideAnchor = () => {
     return (
-      <span className='details'>
-        <a onClick={this.toggleDetails}>&uarr; Hide</a>
-      </span>
+      <AnchorTxDetails onClick={this.toggleDetails}>
+        &uarr; Hide
+      </AnchorTxDetails>
     );
   };
 
@@ -81,22 +161,21 @@ class TxDetails extends Component {
     }
 
     return (
-      <div>
-        <div className='form_details_buttons'>
+      <ThemeProvider theme={theme}>
+        <div>
           {showDetails ? this.showHideAnchor() : this.showDetailsAnchor()}
-        </div>
-        <div className='form_field'>
-          <div hidden={!showDetails}>
-            <label htmlFor='txDetails'>Transaction Details (Estimate):</label>
-            <textarea
-              className='-sm-details'
+          <DivFormField hidden={!showDetails}>
+            <LabelTextareaTxDetails htmlFor='txDetails'>
+              Transaction Details (Estimate):
+            </LabelTextareaTxDetails>
+            <TextareaTxDetails
               id='txDetails'
               readOnly
               value={this.renderDetails(values)}
             />
-          </div>
+          </DivFormField>
         </div>
-      </div>
+      </ThemeProvider>
     );
   }
 }

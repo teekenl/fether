@@ -106,17 +106,6 @@
     font-family: $mono;
     font-size: ms(-1);
 
-    &.-xs-inline {
-      display: inline-flex;
-      height: 2.5rem;
-    }
-
-    &.-sm-details {
-      color: $dark-grey;
-      font-size: 0.6rem;
-      height: 4.75rem;
-    }
-
     &.-sm {
       height: 3.5rem;
     }
@@ -132,14 +121,6 @@
     &.-xlg {
       height: 12rem;
     }
-  }
-}
-
-.form_details_buttons {
-  .details > a {
-    color: $dark-grey;
-    font-size: 0.8rem;
-    font-weight: 400;
   }
 }
 
