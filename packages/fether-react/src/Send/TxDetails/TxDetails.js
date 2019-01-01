@@ -11,7 +11,7 @@ import styled, { ThemeProvider } from 'styled-components';
 const DivFormField = styled.div`
   margin: 0.5rem 0;
   border-radius: 0.25rem;
-  background: rgba(${props => props.theme.faint};, 0.25);
+  background: ${props => props.theme.faint};
   position: relative;
 `;
 
@@ -53,39 +53,39 @@ const TextareaTxDetails = styled.textarea`
 const theme = {
   black: '#222',
   darkGrey: '#444444',
-  faint: '#ddd',
+  faint: '#f6f6f6',
   // TODO - how to add alternatives fonts: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace
   mono: 'Menlo'
 };
 
-// // Default theme for DivFormField that is not wrapped in ThemeProvider
-// DivFormField.defaultProps = {
-//   theme: {
-//     faint: '#ddd'
-//   }
-// }
+// Default theme for DivFormField that is not wrapped in ThemeProvider
+DivFormField.defaultProps = {
+  theme: {
+    faint: '#f6f6f6'
+  }
+};
 
-// // Default theme for AnchorTxDetails that is not wrapped in ThemeProvider
-// AnchorTxDetails.defaultProps = {
-//   theme: {
-//     darkGrey: '#444444'
-//   }
-// }
+// Default theme for AnchorTxDetails that is not wrapped in ThemeProvider
+AnchorTxDetails.defaultProps = {
+  theme: {
+    darkGrey: '#444444'
+  }
+};
 
-// // Default theme for LabelTextareaTxDetails that is not wrapped in ThemeProvider
-// LabelTextareaTxDetails.defaultProps = {
-//   theme: {
-//     black: '#222'
-//   }
-// }
+// Default theme for LabelTextareaTxDetails that is not wrapped in ThemeProvider
+LabelTextareaTxDetails.defaultProps = {
+  theme: {
+    black: '#222'
+  }
+};
 
-// // Default theme for TextareaTxDetails that is not wrapped in ThemeProvider
-// TextareaTxDetails.defaultProps = {
-//   theme: {
-//     darkGrey: '#444444',
-//     mono: 'Menlo'
-//   }
-// }
+// Default theme for TextareaTxDetails that is not wrapped in ThemeProvider
+TextareaTxDetails.defaultProps = {
+  theme: {
+    darkGrey: '#444444',
+    mono: 'Menlo'
+  }
+};
 
 class TxDetails extends Component {
   state = {
