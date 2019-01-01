@@ -8,10 +8,10 @@ import BigNumber from 'bignumber.js';
 import { toWei } from '@parity/api/lib/util/wei';
 import styled, { ThemeProvider } from 'styled-components';
 
-const DivFormField = styled.div`
-  margin: 0.5rem 0;
+const DivTxForm = styled.div`
   border-radius: 0.25rem;
   background: ${props => props.theme.faint};
+  margin: 0.5rem 0;
   position: relative;
 `;
 
@@ -22,12 +22,12 @@ const AnchorTxDetails = styled.a`
 `;
 
 const LabelTextareaTxDetails = styled.label`
+  color: ${props => props.theme.black};
+  display: block;
   font-size: 0.7rem;
   font-weight: 600;
-  color: ${props => props.theme.black};
   opacity: 0.75;
   padding: 0.5rem 0.5rem 0;
-  display: block;
 `;
 
 const TextareaTxDetails = styled.textarea`
@@ -58,8 +58,8 @@ const theme = {
   mono: 'Menlo'
 };
 
-// Default theme for DivFormField that is not wrapped in ThemeProvider
-DivFormField.defaultProps = {
+// Default theme for DivTxForm that is not wrapped in ThemeProvider
+DivTxForm.defaultProps = {
   theme: {
     faint: '#f6f6f6'
   }
@@ -164,7 +164,7 @@ class TxDetails extends Component {
       <ThemeProvider theme={theme}>
         <div>
           {showDetails ? this.showHideAnchor() : this.showDetailsAnchor()}
-          <DivFormField hidden={!showDetails}>
+          <DivTxForm hidden={!showDetails}>
             <LabelTextareaTxDetails htmlFor='txDetails'>
               Transaction Details (Estimate):
             </LabelTextareaTxDetails>
@@ -173,7 +173,7 @@ class TxDetails extends Component {
               readOnly
               value={this.renderDetails(values)}
             />
-          </DivFormField>
+          </DivTxForm>
         </div>
       </ThemeProvider>
     );
