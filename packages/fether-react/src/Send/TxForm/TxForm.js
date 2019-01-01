@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom';
 import { OnChange } from 'react-final-form-listeners';
 import { withProps } from 'recompose';
 
+import DivWindowContent from '../../assets/theme/shared/styledComponents/DivWindowContent';
 import { estimateGas } from '../../utils/estimateGas';
 import RequireHealth from '../../RequireHealthOverlay';
 import TokenBalance from '../../Tokens/TokensList/TokenBalance';
@@ -130,7 +131,7 @@ class Send extends Component {
         />
 
         <RequireHealth require='sync'>
-          <div className='window_content'>
+          <DivWindowContent>
             <div className='box -padded'>
               <TokenBalance
                 decimals={6}
@@ -244,7 +245,7 @@ class Send extends Component {
                 token={token}
               />
             </div>
-          </div>
+          </DivWindowContent>
         </RequireHealth>
       </div>
     );

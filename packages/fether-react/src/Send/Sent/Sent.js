@@ -10,6 +10,7 @@ import light from '@parity/light.js-react';
 
 import check from '../../assets/img/icons/check.svg';
 import loading from '../../assets/img/icons/loading.svg';
+import DivWindowContent from '../../assets/theme/shared/styledComponents/DivWindowContent';
 
 // Number of confirmations to consider a transaction successful
 const MIN_CONFIRMATIONS = 6;
@@ -39,7 +40,7 @@ class Sent extends Component {
     } = this.props;
 
     return (
-      <div className='window_content'>
+      <DivWindowContent>
         <div className='alert-screen'>
           <div className='alert-screen_content'>
             <div className='alert-screen_image'>
@@ -63,7 +64,7 @@ class Sent extends Component {
             )}
           </div>
         </div>
-      </div>
+      </DivWindowContent>
     );
   }
 

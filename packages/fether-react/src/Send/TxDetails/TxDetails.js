@@ -6,11 +6,26 @@
 import React, { Component } from 'react';
 import BigNumber from 'bignumber.js';
 import { toWei } from '@parity/api/lib/util/wei';
-import styled, { ThemeProvider } from 'styled-components';
+import styled, { css, keyframes, ThemeProvider } from 'styled-components';
+
+const animation = keyframes`
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+`;
+
+const animationRule = css`
+  ${animation} 1s infinite alternate;
+`;
 
 const DivTxForm = styled.div`
+  animation: ${animationRule};
   border-radius: 0.25rem;
-  background: ${props => props.theme.faint};
+  background: rgba(${props => props.theme.faint}, 0.25);
   margin: 0.5rem 0;
   position: relative;
 `;
@@ -53,7 +68,7 @@ const TextareaTxDetails = styled.textarea`
 const theme = {
   black: '#222',
   darkGrey: '#444444',
-  faint: '#f6f6f6',
+  faint: '#ddd',
   // TODO - how to add alternatives fonts: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace
   mono: 'Menlo'
 };
@@ -61,7 +76,7 @@ const theme = {
 // Default theme for DivTxForm that is not wrapped in ThemeProvider
 DivTxForm.defaultProps = {
   theme: {
-    faint: '#f6f6f6'
+    faint: '#ddd'
   }
 };
 

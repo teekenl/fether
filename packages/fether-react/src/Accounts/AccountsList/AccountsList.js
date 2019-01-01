@@ -9,6 +9,7 @@ import { accountsInfo$, withoutLoading } from '@parity/light.js';
 import { inject, observer } from 'mobx-react';
 import light from '@parity/light.js-react';
 
+import DivWindowContent from '../../assets/theme/shared/styledComponents/DivWindowContent';
 import Health from '../../Health';
 
 @light({
@@ -48,7 +49,7 @@ class AccountsList extends Component {
           }
         />
 
-        <div className='window_content'>
+        <DivWindowContent>
           <div className='box -scroller'>
             {accountsList.length ? (
               <ul className='list'>
@@ -82,7 +83,7 @@ class AccountsList extends Component {
               </p>
             )}
           </div>
-        </div>
+        </DivWindowContent>
 
         <nav className='footer-nav'>
           <div className='footer-nav_status'>

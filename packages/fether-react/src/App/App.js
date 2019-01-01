@@ -14,6 +14,8 @@ import {
 import { inject, observer } from 'mobx-react';
 import isElectron from 'is-electron';
 import ReactResizeDetector from 'react-resize-detector';
+import styled, { ThemeProvider } from 'styled-components';
+import { fetherTheme, GlobalStyle } from '../assets/theme/globalStyle';
 
 import Accounts from '../Accounts';
 import BackupAccount from '../BackupAccount';
@@ -28,6 +30,22 @@ import Whitelist from '../Whitelist';
 const Router =
   process.env.NODE_ENV === 'production' ? MemoryRouter : BrowserRouter;
 const electron = isElectron() ? window.require('electron') : null;
+
+const DivContent = styled.div`
+  overflow: visible;
+  max-width: 22rem;
+  margin: 0 auto;
+`;
+
+const DivWindow = styled.div`
+  background: ${props => props.theme.chrome};
+  border-radius: 0.25rem;
+  min-height: 15rem;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 0.125rem 0.75rem rgba(${props => props.theme.black}, 0.175),
+    0 0.125rem 0.125rem rgba(${props => props.theme.black}, 0.1);
+`;
 
 @inject('onboardingStore')
 @observer
@@ -58,35 +76,43 @@ class App extends Component {
 
     return (
       <ReactResizeDetector handleHeight onResize={this.handleResize}>
-        <div className='content'>
-          <div className='window'>
-            {/* Don't display child components requiring RPCs if API is not yet set */}
-            <RequireHealth require='connected' fullscreen>
-              <Router>
-                <Switch>
-                  {/* The next line is the homepage */}
-                  <Redirect exact from='/' to='/accounts' />
-                  <Route path='/accounts' component={Accounts} />
-                  <Route path='/onboarding' component={Onboarding} />
-                  <Route path='/tokens/:accountAddress' component={Tokens} />
-                  <Route
-                    path='/whitelist/:accountAddress'
-                    component={Whitelist}
-                  />
-                  <Route
-                    path='/backup/:accountAddress'
-                    component={BackupAccount}
-                  />
-                  <Route
-                    path='/send/:tokenAddress/from/:accountAddress'
-                    component={Send}
-                  />
-                  <Redirect from='*' to='/' />
-                </Switch>
-              </Router>
-            </RequireHealth>
+        <ThemeProvider theme={fetherTheme}>
+          <div>
+            <GlobalStyle theme={fetherTheme} />
+            <DivContent>
+              <DivWindow>
+                {/* Don't display child components requiring RPCs if API is not yet set */}
+                <RequireHealth require='connected' fullscreen>
+                  <Router>
+                    <Switch>
+                      {/* The next line is the homepage */}
+                      <Redirect exact from='/' to='/accounts' />
+                      <Route path='/accounts' component={Accounts} />
+                      <Route path='/onboarding' component={Onboarding} />
+                      <Route
+                        path='/tokens/:accountAddress'
+                        component={Tokens}
+                      />
+                      <Route
+                        path='/whitelist/:accountAddress'
+                        component={Whitelist}
+                      />
+                      <Route
+                        path='/backup/:accountAddress'
+                        component={BackupAccount}
+                      />
+                      <Route
+                        path='/send/:tokenAddress/from/:accountAddress'
+                        component={Send}
+                      />
+                      <Redirect from='*' to='/' />
+                    </Switch>
+                  </Router>
+                </RequireHealth>
+              </DivWindow>
+            </DivContent>
           </div>
-        </div>
+        </ThemeProvider>
       </ReactResizeDetector>
     );
   }
