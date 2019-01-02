@@ -8,22 +8,29 @@ import BigNumber from 'bignumber.js';
 import { toWei } from '@parity/api/lib/util/wei';
 import styled, { css, keyframes, ThemeProvider } from 'styled-components';
 
-const animation = keyframes`
-  0% {
-    opacity: 0;
+const animationSlideLeftIn = keyframes`
+  from {
+    right: 100%;
   }
 
-  100% {
-    opacity: 1;
+  to {
+    right: 0px;
   }
 `;
 
 const animationRule = css`
-  ${animation} 1s infinite alternate;
+  animation-name: ${animationSlideLeftIn}; /* required */
+  animation-duration: 0.5s; /* required */
+  animation-timing-function: ease-in;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: normal;
+  animation-play-state: playing;
 `;
 
 const DivTxForm = styled.div`
-  animation: ${animationRule};
+  ${animationRule};
   border-radius: 0.25rem;
   background: rgba(${props => props.theme.faint}, 0.25);
   margin: 0.5rem 0;
@@ -62,45 +69,6 @@ const TextareaTxDetails = styled.textarea`
   width: calc(100% - 1rem);
   word-wrap: break-word;
 `;
-
-// Define props.theme that will overwrite default them when wrapping
-// components with `<ThemeProvider theme={theme}></ThemeProvider>`
-const theme = {
-  black: '#222',
-  darkGrey: '#444444',
-  faint: '#ddd',
-  // TODO - how to add alternatives fonts: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace
-  mono: 'Menlo'
-};
-
-// Default theme for DivTxForm that is not wrapped in ThemeProvider
-DivTxForm.defaultProps = {
-  theme: {
-    faint: '#ddd'
-  }
-};
-
-// Default theme for AnchorTxDetails that is not wrapped in ThemeProvider
-AnchorTxDetails.defaultProps = {
-  theme: {
-    darkGrey: '#444444'
-  }
-};
-
-// Default theme for LabelTextareaTxDetails that is not wrapped in ThemeProvider
-LabelTextareaTxDetails.defaultProps = {
-  theme: {
-    black: '#222'
-  }
-};
-
-// Default theme for TextareaTxDetails that is not wrapped in ThemeProvider
-TextareaTxDetails.defaultProps = {
-  theme: {
-    darkGrey: '#444444',
-    mono: 'Menlo'
-  }
-};
 
 class TxDetails extends Component {
   state = {
@@ -176,21 +144,19 @@ class TxDetails extends Component {
     }
 
     return (
-      <ThemeProvider theme={theme}>
-        <div>
-          {showDetails ? this.showHideAnchor() : this.showDetailsAnchor()}
-          <DivTxForm hidden={!showDetails}>
-            <LabelTextareaTxDetails htmlFor='txDetails'>
-              Transaction Details (Estimate):
-            </LabelTextareaTxDetails>
-            <TextareaTxDetails
-              id='txDetails'
-              readOnly
-              value={this.renderDetails(values)}
-            />
-          </DivTxForm>
-        </div>
-      </ThemeProvider>
+      <div>
+        {showDetails ? this.showHideAnchor() : this.showDetailsAnchor()}
+        <DivTxForm hidden={!showDetails}>
+          <LabelTextareaTxDetails htmlFor='txDetails'>
+            Transaction Details (Estimate):
+          </LabelTextareaTxDetails>
+          <TextareaTxDetails
+            id='txDetails'
+            readOnly
+            value={this.renderDetails(values)}
+          />
+        </DivTxForm>
+      </div>
     );
   }
 }

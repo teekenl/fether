@@ -9,16 +9,12 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
 `;
 
-// Define props.theme that will overwrite a styled component's
-// default theme (i.e. `xyz.defaultProps`) when wrapping
-// components with `<ThemeProvider theme={theme}></ThemeProvider>`
 const fetherTheme = {
   black: '#222',
   chrome: '#f5f6f6',
   darkGrey: '#444444',
   faint: '#ddd',
-  // TODO - how to add alternatives fonts: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace
-  mono: 'Menlo'
+  mono: 'SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace'
 };
 
 export { fetherTheme, GlobalStyle };
