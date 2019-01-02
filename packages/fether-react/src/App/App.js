@@ -25,7 +25,6 @@ import Tokens from '../Tokens';
 import Whitelist from '../Whitelist';
 
 import { fetherTheme, GlobalStyle } from '../assets/theme/globalStyle';
-
 import { DivContentStyles, DivWindowStyles } from './style';
 
 const DivContent = styled.div`
