@@ -26,22 +26,13 @@ import Whitelist from '../Whitelist';
 
 import { fetherTheme, GlobalStyle } from '../assets/theme/globalStyle';
 
-import { DivContentStyles } from './style';
+import { DivContentStyles, DivWindowStyles } from './style';
 
 const DivContent = styled.div`
   ${DivContentStyles};
 `;
-
-// Note: Cannot move into style.js because it causes the window body to
-// disappear when navigating between views
 const DivWindow = styled.div`
-  background: ${props => props.theme.chrome};
-  border-radius: 0.25rem;
-  min-height: 15rem;
-  overflow: hidden;
-  position: relative;
-  box-shadow: 0 0.125rem 0.75rem rgba(${props => props.theme.black}, 0.175),
-    0 0.125rem 0.125rem rgba(${props => props.theme.black}, 0.1);
+  ${DivWindowStyles};
 `;
 
 // Use MemoryRouter for production viewing in file:// protocol
