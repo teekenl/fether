@@ -6,20 +6,11 @@
 import React, { Component } from 'react';
 import BigNumber from 'bignumber.js';
 import { toWei } from '@parity/api/lib/util/wei';
-import styled, { css, keyframes, ThemeProvider } from 'styled-components';
+import styled, { css } from 'styled-components';
+import SlideLeftIn from '../../assets/theme/shared/animations/SlideLeftIn';
 
-const animationSlideLeftIn = keyframes`
-  from {
-    right: 100%;
-  }
-
-  to {
-    right: 0px;
-  }
-`;
-
-const animationRule = css`
-  animation-name: ${animationSlideLeftIn}; /* required */
+const animationRuleSlideLeftIn = css`
+  animation-name: ${SlideLeftIn}; /* required */
   animation-duration: 0.5s; /* required */
   animation-timing-function: ease-in;
   animation-delay: 0s;
@@ -30,7 +21,7 @@ const animationRule = css`
 `;
 
 const DivTxForm = styled.div`
-  ${animationRule};
+  ${animationRuleSlideLeftIn};
   border-radius: 0.25rem;
   background: rgba(${props => props.theme.faint}, 0.25);
   margin: 0.5rem 0;
