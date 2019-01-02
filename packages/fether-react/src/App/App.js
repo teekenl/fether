@@ -15,7 +15,6 @@ import { inject, observer } from 'mobx-react';
 import isElectron from 'is-electron';
 import ReactResizeDetector from 'react-resize-detector';
 import styled, { ThemeProvider } from 'styled-components';
-import { fetherTheme, GlobalStyle } from '../assets/theme/globalStyle';
 
 import Accounts from '../Accounts';
 import BackupAccount from '../BackupAccount';
@@ -25,18 +24,16 @@ import Send from '../Send';
 import Tokens from '../Tokens';
 import Whitelist from '../Whitelist';
 
-// Use MemoryRouter for production viewing in file:// protocol
-// https://github.com/facebook/create-react-app/issues/3591
-const Router =
-  process.env.NODE_ENV === 'production' ? MemoryRouter : BrowserRouter;
-const electron = isElectron() ? window.require('electron') : null;
+import { fetherTheme, GlobalStyle } from '../assets/theme/globalStyle';
+
+import { DivContentStyles } from './style';
 
 const DivContent = styled.div`
-  overflow: visible;
-  max-width: 22rem;
-  margin: 0 auto;
+  ${DivContentStyles};
 `;
 
+// Note: Cannot move into style.js because it causes the window body to
+// disappear when navigating between views
 const DivWindow = styled.div`
   background: ${props => props.theme.chrome};
   border-radius: 0.25rem;
@@ -46,6 +43,12 @@ const DivWindow = styled.div`
   box-shadow: 0 0.125rem 0.75rem rgba(${props => props.theme.black}, 0.175),
     0 0.125rem 0.125rem rgba(${props => props.theme.black}, 0.1);
 `;
+
+// Use MemoryRouter for production viewing in file:// protocol
+// https://github.com/facebook/create-react-app/issues/3591
+const Router =
+  process.env.NODE_ENV === 'production' ? MemoryRouter : BrowserRouter;
+const electron = isElectron() ? window.require('electron') : null;
 
 @inject('onboardingStore')
 @observer
