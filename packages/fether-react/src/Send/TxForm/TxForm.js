@@ -21,12 +21,14 @@ import RequireHealth from '../../RequireHealthOverlay';
 import TokenBalance from '../../Tokens/TokensList/TokenBalance';
 import withAccount from '../../utils/withAccount.js';
 import withBalance, { withEthBalance } from '../../utils/withBalance';
+import withHealth from '../../utils/withHealth';
 import withTokens from '../../utils/withTokens';
 
 const MAX_GAS_PRICE = 40; // In Gwei
 const MIN_GAS_PRICE = 3; // Safelow gas price from GasStation, in Gwei
 
 @inject('parityStore', 'sendStore')
+@withHealth
 @withTokens
 @withProps(({ match: { params: { tokenAddress } }, tokens }) => ({
   token: tokens[tokenAddress]
@@ -137,6 +139,8 @@ class Send extends Component {
       sendStore: { tx },
       token
     } = this.props;
+
+    console.log('this.props: ', this.props);
 
     const {
       form: { amount, gasPrice, to }

@@ -32,6 +32,8 @@ export const eth = {
   address: 'ETH'
 };
 
+export const isApiConnected$ = true; // FIXME - this is wrong, help
+
 export const makeContract = {
   contractObject: {
     instance: {

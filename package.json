@@ -61,6 +61,8 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1",
     "husky": "^1.0.0-rc.13",
     "lerna": "^2.11.0",
     "npm-run-all": "^4.1.2",

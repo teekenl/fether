@@ -1,0 +1,13 @@
+// Copyright 2015-2018 Parity Technologies (UK) Ltd.
+// This file is part of Parity.
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
+const Adapter = require('enzyme-adapter-react-16');
+const Enzyme = require('enzyme');
+
+Enzyme.configure({
+  adapter: new Adapter()
+});
+
+module.exports = Enzyme;
